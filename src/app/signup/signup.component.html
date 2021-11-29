@@ -1,0 +1,206 @@
+<!--<mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <form class="container" (ngSubmit)="onSubmit()" #userForm="ngForm">
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Personal Information</ng-template>
+        <p>
+          <mat-form-field>
+            <input matInput placeholder="Frist Name" [(ngModel)]="user.firstName" name="firstName"
+                   formControlName="firstName" required>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field color="primary">
+            <input matInput placeholder="Last Name" [(ngModel)]="user.lastName" name="lastName"
+                   formControlName="lastName" required>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field color="primary">
+            <input matInput placeholder="Email" [(ngModel)]="user.emailId" name="emailId" formControlName="email"
+                   (keyup)="checkEmail($event)" required>
+            <mat-error *ngIf="registerForm.get('email').hasError('required')">
+              E-mail is mandatory.
+            </mat-error>
+            <mat-error *ngIf="registerForm.get('email').hasError('email')">
+              Incorrect E-mail.
+            </mat-error>
+            <label *ngIf="inData == true" class="alert-danger">Email is Already Used</label>
+          </mat-form-field>
+
+        </p>
+
+        <p>
+          <mat-form-field color="primary">
+            <input matInput [type]="hide ? 'password' : 'text'"
+                   placeholder="Enter Password" type="password" name="password"
+                   [(ngModel)]="user.password" formControlName="password" required>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-hint class="ac-form-field-description">Between 6 and 24 characters.</mat-hint>
+            <mat-error *ngIf="registerForm.get('password').hasError('required')">
+              Password is mandatory.
+            </mat-error>
+            <mat-error *ngIf="registerForm.get('password').hasError('minlength')">
+              Password with less than 6 characters.
+            </mat-error>
+            <mat-error *ngIf="registerForm.get('password').hasError('maxlength')">
+              Password with more than 24 characters.
+            </mat-error>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field color="primary">
+            <input matInput [type]="hideConfirmPassword ? 'password' : 'text'"
+                   placeholder="Confirm Password" type="password"
+                   formControlName="confirmPassword" required>
+            <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
+                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+              <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="registerForm.get('confirmPassword').hasError('mustMatch')">
+              Passwords are different. They should be equal!
+            </mat-error>
+          </mat-form-field>
+        </p>
+        <section class="example-section">
+          <mat-checkbox class="example-margin" formControlName="acceptTerms">Checked</mat-checkbox>
+        </section>
+        <div>
+          <button mat-flat-button matStepperPrevious>Back</button>
+          <button mat-flat-button matStepperNext [disabled]="!registerForm.valid || inData!=false" class="float-right"
+                  (click)="onButton()">Next
+          </button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step label="Blood Infomations">
+      <p> Blood Infomations </p>
+      <div>
+        <button mat-flat-button matStepperPrevious>Back</button>
+        <button mat-flat-button matStepperNext class="float-right">Next</button>
+      </div>
+    </mat-step>
+    <mat-step label="Address Infomations">
+      <p> Address Infomations </p>
+      <div>
+        <button mat-flat-button matStepperPrevious>Back</button>
+        <button mat-flat-button matStepperNext class="float-right">Next</button>
+      </div>
+    </mat-step>
+  </form>
+</mat-horizontal-stepper>
+
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Enter your name</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Last name, First name" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext (click)="onButton()">Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Enter your address</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Address" formControlName="secondCtrl" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="thirdFormGroup">
+    <ng-template matStepLabel>Done</ng-template>
+    Details taken.
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+<mat-horizontal-stepper linear id="stepper">
+
+  <ng-template matStepperIcon="done" let-index="index">
+    {{(index + 1) * 10}}
+  </ng-template>
+
+  <mat-step label="Step 1">
+    <p>Step 1</p>
+    <button mat-button (click)="onButton()" mat-raised-button color="primary">Complete</button>
+  </mat-step>
+
+  <mat-step label="Step 2">
+    <h3>Step 2</h3>
+    <button mat-button (click)="onButton()" mat-raised-button color="primary">Complete</button>
+  </mat-step>
+
+  <mat-step label="Step 3">
+    <h3>Step 3</h3>
+    <button mat-button (click)="onButton()" mat-raised-button color="primary">Complete</button>
+  </mat-step>
+
+</mat-horizontal-stepper>
+-->
+
+<div class="card my-5">
+  <div class="card-body" *ngIf="mode==0">
+    <form (ngSubmit)="onSubmit()" #userForm="ngForm" *ngIf="mode==0">
+      <div class="form-group">
+        <label for="firstName">Name</label>
+        <input type="text" [(ngModel)]="user.firstName"
+               class="form-control"
+               id="firstName"
+               name="firstName"
+               placeholder="Enter your name"
+               required #firstName="ngModel">
+      </div>
+      <div class="form-group">
+        <label for="lastName">Name</label>
+        <input type="text" [(ngModel)]="user.lastName"
+               class="form-control"
+               id="lastName"
+               name="lastName"
+               placeholder="Enter your name"
+               required #lastName="ngModel">
+      </div>
+      <div [hidden]="!lastName.pristine" class="alert alert-danger">Last Name is required</div>
+      <div class="form-group">
+        <label for="emailId">Email</label>
+        <input type="text" [(ngModel)]="user.emailId" class="form-control" id="emailId" name="emailId"
+               placeholder="Enter your email address" required #emailId="ngModel" (keyup)="checkEmail($event)">
+        <div [hidden]="!emailId.pristine" class="alert alert-danger">Email is required</div>
+        <div>
+          <div *ngIf="inData == true" class="alert alert-danger">Email is Already</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Email</label>
+        <input type="password" [(ngModel)]="user.password"
+               class="form-control"
+               id="password"
+               name="password"
+               placeholder="Enter your email address"
+               required #password="ngModel">
+        <div [hidden]="!password.pristine" class="alert alert-danger">Password is required</div>
+      </div>
+      <button mat-raised-button type="submit" [disabled]="!userForm.form.valid ||inData == true"
+              class="btn btn-info">Submit
+      </button>
+      <button mat-raised-button class="btn btn-info"> test btn</button>
+    </form>
+  </div>
+  <div *ngIf="mode==1">
+    <p>
+      <label>Your Email is already in our database</label>
+    </p>
+  </div>
+</div>

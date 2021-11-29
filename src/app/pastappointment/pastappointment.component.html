@@ -1,0 +1,112 @@
+<!--<div id="wrapper">
+
+  <div id="content-wrapper">
+
+    <div class="container-fluid" style="margin-bottom: 50px;">
+      <ol class="breadcrumb" style="margin-top: 60px;">
+        <li class="breadcrumb-item">
+          <a href="dashboard">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Past Appointments</li>
+      </ol>
+      <div class="table-responsive-xl">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th scope="col">Appointment Id</th>
+            <th scope="col">Appointment Title</th>
+            <th scope="col">Start Time</th>
+            <th scope="col">Donner</th>
+            <th scope="col">Location</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let appointment of pastAppointments.slice().reverse()" >
+            <th scope="row">{{appointment.appointmentId}}</th>
+            <td scope="row">{{appointment.appointmentTitle}}</td>
+            <td scope="row">{{appointment.startTime}}</td>
+            <td scope="row">{{appointment.organiser.lastName}}</td>
+            <td scope="row">{{appointment.location}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>-->
+
+<div class="container mat-elevation-z8">
+
+  <div class="form">
+    <mat-form-field color="primary">
+      <input matInput #filter placeholder="Search">
+    </mat-form-field>
+  </div>
+
+  <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+    ng update @angular/cli @angular/core
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="appointmentId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Appointment Id</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.appointmentId}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="appointmentTitle">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Motif</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.appointmentTitle}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="startTime">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Appointment Time</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.startTime}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Donner</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.organiser.lastName}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="location">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Center Location</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.location}}</mat-cell>
+    </ng-container>
+
+    <!-- actions -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>
+      </mat-header-cell>
+
+      <!--<mat-cell *matCellDef="let row; let i=index;">
+        <button mat-icon-button color="primary"
+                (click)="startEdit(i, row.userId, row.firstName, row.lastName, row.emailId, row.enabled)">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn"
+                (click)="deleteItem(i,row.userId, row.firstName, row.lastName, row.emailId, row.enabled)">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      </mat-cell>-->
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+
+  <div class="no-results" [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+    No results
+  </div>
+
+  <mat-paginator #paginator
+                 [length]="dataSource.filteredData.length"
+                 [pageIndex]="0"
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+</div>

@@ -1,0 +1,229 @@
+<div id="wrapper">
+
+  <div id="content-wrapper">
+
+    <div class="container-fluid" style="margin-bottom: 50px;">
+
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb" style="margin-top: 10px;">
+        <li class="breadcrumb-item">Dashboard</li>
+      </ol>
+
+      <div class="row" style="padding: 15px;">
+        <h3>Bienvenu Mr/Mme <b>{{username}} {{userId}}</b> dans Votre Dashboard</h3>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4">
+          <div class="stat-card">
+            <div class="stat-icon right">
+              <span class="bg-ontrack">
+                <mat-icon class="iconSpan">today</mat-icon>
+              </span>
+            </div>
+            <h3>Toutes les rendez-vous pour aujourd'hui</h3>
+            <h4 class="stat-num">
+              <span *ngIf="upcAppointmentsCount" class="txt-ontrack">{{upcAppointmentsCount}}</span>
+              <span *ngIf="!upcAppointmentsCount" class="txt-ontrack-if">Aucun Rendez-Vous Pour Aujourd'hui</span>
+            </h4>
+            <!--<div class="subtext">
+              <i class="glyphicon glyphicon-triangle-top txt-ontrack"></i> percent occupied of <strong>goal: 100%</strong>
+            </div>
+            <div class="source">Source: <a href="#">Graydale Housing Authority</a></div>-->
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+          <div class="stat-card">
+            <div class="stat-icon right">
+              <span class="bg-measure">
+                <mat-icon class="iconSpan">notifications</mat-icon>
+              </span>
+            </div>
+            <h3>Toutes les notifications</h3>
+            <h4 class="stat-num">
+              <span class="txt-measure">{{upcNotificationCount}}</span>
+            </h4>
+            <!--<div class="subtext"><i class="glyphicon glyphicon glyphicon-stats txt-measure"></i> residents assisted</div>
+            <div class="source">Source: <a href="#">Graydale Housing Authority</a></div>-->
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+          <div class="stat-card">
+            <div class="stat-icon right">
+              <span class="bg-failing">
+                <mat-icon class="iconSpan">skip_next</mat-icon>
+              </span>
+            </div>
+            <h3>Rental Inspections Completed<br /> </h3>
+            <h4 class="stat-num"><span *ngIf="!nextAppointment" class="txt-failing-if">Vous Avez Aucun Rendez-vous</span></h4>
+            <h4 class="stat-num"><span *ngIf="nextAppointment" class="txt-failing">{{this.time}}</span></h4>
+            <!--<div class="subtext">
+              <i class="glyphicon glyphicon-triangle-bottom txt-failing"></i> last month of <strong>goal: 40</strong>
+            </div>
+            <div class="source">Source: <a href="#">Graydale Housing Authority</a></div>-->
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Icon Cards-->
+      <!--<div class="row">
+        <div class="col-xl-6 col-md-12 tab1cards">
+          <div class="card-content cardApp">
+            <hr>
+            <span>Prochain Rendez-vous : </span>
+            <span class="nextAppText" *ngIf="nextAppointment">{{nextAppointment.startTime}}</span>
+            <span class="nextAppText" *ngIf="!nextAppointment">Vous Avez Aucun Rendez-vous</span>
+          </div>
+          <div class="card-content cardApp">
+            <hr>
+            <span>Prochain Rendez-vous : </span>
+            <span class="nextAppText" *ngIf="nextAppointment">{{nextAppointment.startTime}}</span>
+            <span class="nextAppText" *ngIf="!nextAppointment">Vous Avez Aucun Rendez-vous</span>
+          </div>
+        </div>
+      </div>-->
+      <!--<div class="row">
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-primary o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fas fa-fw fa-clock"></i>
+              </div>
+              <div class="mr-5">{{upcAppointmentsCount}} Prochain Rendez-Vous!</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-warning o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fas fa-fw fa-list"></i>
+              </div>
+              <div class="mr-5">{{upcReminderCount}} Rappels!</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-success o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fas fa-fw fa-flag"></i>
+              </div>
+              <div class="mr-5">{{upcNotificationCount}} Nouvelles Notifications!</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-danger o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fas fa-fw fa-step-forward"></i>
+              </div>
+              <div class="mr-5">Prochain Rendez-Vous le : <p *ngIf="nextAppointment">{{this.time}}</p></div>
+            </div>
+          </div>
+        </div>
+      </div>-->
+      <hr>
+      <div class="row">
+        <div class="col-md-6">
+          <!-- Upcoming Meetings Card -->
+          <div class="card" style="width: 100%;" id="upcomingMeetings">
+            <div class="card-body">
+              <h3 class="card-title">Prochains Rendez-Vous Pour Aujourd'hui:</h3>
+              <div>
+                <!-- Meeting Cards -->
+                <div class="scrolling-meeting">
+                <div *ngFor="let appointment of appointmentsList">
+                  <div *ngIf="appointment && this.appointmentDay(appointment.startTime) == this.currentDay" style="width: 100%; height: 150px">
+                    <div>
+                      <b> Donneur: </b>  {{appointment.organiser.lastName}} {{appointment.organiser.firstName}}<br>
+                      <b> Date: </b>  {{this.Day_name_liste(appointment.startTime)}}<br>
+                      <b> Motif : </b> {{appointment.appointmentTitle}}
+                      <hr>
+                    </div>
+
+                  </div>
+                </div>
+                </div>
+                <!-- Meeting Cards -->
+              </div>
+              <hr>
+              <a href="pastappointment" mat-raised-button color="accent" style="margin-right: 80px">Voir les rendez-vous passés</a>
+              <a href="addappointment" mat-raised-button color="accent">Planifier un nouveau rendez-vous</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <!--Upcoming Reminders Card-->
+            <div class="card" style="width: 98%; background-color: #ffc10762;" id="upcomingReminders">
+              <div class="card-body">
+                <h3 class="card-title">Prochain Rappels :</h3>
+                <div class="card-text">
+                  <!-- Reminder Cards -->
+                  <div
+                    *ngFor="let reminder of reminderList?.reverse() | paginate: { id:'pag2', itemsPerPage: 2, currentPage: p }">
+                    <div class="card" style="width: 100%;">
+                      <div class="card-body">
+                        <h5 class="card-title">{{reminder.dueTime}}</h5>
+                        <p class="card-text">
+                          {{reminder.remMessage}}
+                        </p>
+                      </div>
+                    </div>
+                    <hr>
+                  </div>
+                  <!-- Reminder Cards -->
+                </div>
+                <pagination-controls id="pag2" class="pagination" (pageChange)="p = $event"></pagination-controls>
+                <hr>
+                <a href="viewreminders" mat-raised-button color="accent">View All Reminders</a>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <!-- Meeting Requests -->
+            <div class="card" style="width: 98%; background-color: #28a7465b;" id="meetingRequests">
+              <div class="card-body">
+                <h3 class="card-title">{{upcNotificationCount}} Notifications - Non lu :
+                </h3>
+                <div class="card-text scrolling-meeting">
+                  <!-- Meeting Request Card -->
+                  <div *ngFor="let notification of notificationsList?.reverse() ">
+                    <div *ngIf="!notification.seen" class="card" style="width: 100%;">
+                      <div class="card-body">
+                        <p style="font-size: 16px">{{notification.notMessage}}</p>
+                        <hr>
+                        <div *ngIf="notification.notMessage.substring(0,14).localeCompare('MEETING UPDATE')">
+                          <button mat-stroked-button color="primary" style="margin-right: 8px"
+                                  (click)="approvedAppointment(notification.appointmentId, notification.notId)">Approve
+                          </button>
+                          <button mat-stroked-button color="warn"
+                                  (click)="cancelAppointment(notification.appointmentId, notification.notId)">Cancel
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Meeting Request Card -->
+                </div>
+                <hr>
+                <a href="viewnotifications" mat-raised-button color="accent">View All Notifications</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+
+  </div>
+  <!-- /.content-wrapper -->
+
+</div>
+<!-- /#wrapper -->

@@ -1,0 +1,72 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+
+
+    <!--<a *ngIf="authServ.isUserLoggedIn()"mat-button href="logout">Log Out</a>-->
+    <button *ngIf="authServ.isUserLoggedIn()" mat-icon-button (click)="toggleShow()">
+      <i class="fas fa-bell fa-lg " style="color:#eeffff" matBadge="{{notcounter}}"
+         [matBadgeHidden]="notcounter == 0" matBadgePosition="above after" matBadgeSize="small"
+         matBadgeColor="accent"></i>
+    </button>
+    <img *ngIf="authServ.isUserLoggedIn()" [src]="this.imageService.imageToShow" alt="Avatar" class="avatar" (click)="toggleAvShow()" >
+  <div *ngIf="isShown" id="divshow">
+    <div id="noti_Container" *ngIf="isShown">
+      <div id="notifications">
+        <h3 class="notification-h3">Notifications</h3>
+        <div *ngFor="let notification of notificationsList?.reverse() ">
+          <div *ngIf="!notification.seen" class=" notcard" style="width: 100%;">
+            <div>
+              <h4 class="notcard-title">{{notification.notMessage}}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="seeAll"><a href="viewnotifications">See All</a></div>
+      </div>
+    </div>
+  </div>
+    <div *ngIf="isShownByAvatar" id="divshowAvatar">
+      <div id="avar_Container" *ngIf="isShownByAvatar">
+        <div id="inAvatar">
+          <div>
+            <div  class=" notcard" style="width: 100%;">
+              <div>
+                <h4 class="notcard-title" href="profile">Profile</h4>
+              </div>
+            </div>
+          </div>
+          <div class="seeAll"><a href="logout">Log Out</a></div>
+        </div>
+      </div>
+  </div>
+  </div>
+</nav>

@@ -1,0 +1,17 @@
+.mat-list-item {
+  color: white;
+  font-size: 15px;
+  padding: 0;
+
+  .routeIcon {
+    margin-right: 8px;
+  }
+
+  .mat-list-item-content{
+    font-size: 5px;
+  }
+
+}
+app-mat-list-item {
+  font-size: 5px !important;
+}

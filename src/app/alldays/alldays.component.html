@@ -1,0 +1,22 @@
+<div id="content-wrapper">
+
+  <div class="container-fluid" style="margin-bottom: 50px;">
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb" style="margin-top: 60px;">
+      <li class="breadcrumb-item">
+        <a href="dashboard">Dashboard</a>
+      </li>
+      <li class="breadcrumb-item active">All Days</li>
+    </ol>
+
+    <div class="row" style="padding: 15px;">
+      <h3>Welcome <b>{{username}}</b> to your Dashboard
+        <div *ngFor="let day of days">
+          Day : {{day}}
+        </div>
+        {{fixedDay.dayId}}
+      </h3>
+    </div>
+  </div>
+</div>
