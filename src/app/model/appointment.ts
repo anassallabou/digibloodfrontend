@@ -1,5 +1,6 @@
 import {Day} from './day';
 import {User} from './user.model';
+import {Center} from './center';
 
 
 export class Appointment {
@@ -14,4 +15,5 @@ export class Appointment {
   location: string;
   active: boolean;
   donationCenter: User;
+  organiserId: number;
 }

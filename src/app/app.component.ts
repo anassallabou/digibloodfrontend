@@ -36,5 +36,14 @@ export class AppComponent {
       })
   }
 
+  allowedUrl(router: string, urls: string[]){
+    for (let url of urls ){
+      if (router === url) {
+        return false;
+      }
+    }
+    return true;
+  }
+
 
 }

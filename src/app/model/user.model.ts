@@ -2,6 +2,7 @@ import {Reminder} from './reminder';
 import {Appointment} from './appointment';
 import {Notification} from "./notification";
 import {Day} from './day';
+import {Role} from './role';
 
 export class User {
   userId: number;
@@ -18,4 +19,5 @@ export class User {
   city:string;
   address: string;
   phoneNumber:number;
+  roles: Role;
 }

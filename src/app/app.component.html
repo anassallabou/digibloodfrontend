@@ -1,3 +1,3 @@
-<app-nav-bar *ngIf="router.url != '/profile'"></app-nav-bar>
 <!--<app-nav-bar></app-nav-bar>-->
+<app-nav-bar *ngIf="allowedUrl(router.url, ['/login','/dashboard', '/center/dashboard'])"></app-nav-bar>
 <router-outlet></router-outlet>

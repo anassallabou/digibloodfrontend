@@ -1,0 +1,130 @@
+.scrolling-meeting {
+  height: 500px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.cardApp{
+  width: 450px;
+  padding: 20px 0px 20px 10px;
+  border-radius: 1px;
+  background: #ffffff;
+}
+.cardApp:hover{
+  box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+}
+.nextAppText{
+  width:100px;
+  margin-left: 50px;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 20px;
+}
+.nextAppTitle{
+  height: 100px;
+  border: solid 1px;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 18px;
+}
+
+.tab1cards {
+  display: flex;
+  flex-direction: row;
+}
+
+/***************************************************************************/
+
+.cardList{
+  display: inline-flex;
+}
+.stat-card h3{
+  font-size: 16px;
+  margin-top: 5px;
+  line-height: 20px;
+  padding-right: 45px;
+  color: #333;
+}
+.stat-card {
+  position: relative;
+  background-color: #fff;
+  width: 280px;
+  min-height: 170px;
+  text-align: left;
+  padding: 15px;
+  border-width: 0;
+  border-style: solid;
+  border-color: rgb(204, 204, 204);
+  border-image: initial;
+  overflow: hidden;
+}
+.stat-icon {
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  padding-left: 30px;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+}
+.iconSpan{
+  padding-top: 40px;
+  padding-right: 70px;
+  font-size: 35px;
+  color: #FFFFFF;
+}
+.stat-icon.right {right: 0px;}
+.stat-icon span {
+  position: absolute;
+  z-index: 8;
+  top: -40px;
+  left: 5px;
+  width: 100px;
+  height: 100px;
+  line-height: 120px;
+  border-radius: 50%;
+}
+.stat-icon i {
+  padding-left: 15px;
+  color: rgb(255, 255, 255);
+  z-index: 9;
+  font-size: 24px;
+}
+.mat-raised-button{
+  font-size: 13px;
+}
+.bg-target {background-color: #E07000;}
+.txt-target {color: #E07000;}
+.bg-ontrack {background-color: #007613;}
+.txt-ontrack {color: #007613;}
+.txt-ontrack-if {color: #007613; font-size: 30px}
+.bg-failing {background-color: #D43E3A;}
+.txt-failing {color: #D43E3A;}
+.txt-failing-if {color: #D43E3A; font-size: 30px}
+.bg-measure {background-color: #186EA5;}
+.txt-measure {color: #186EA5;}
+.stat-card h4.stat-num {font-size: 45px; text-align: left;}
+.stat-card .subtext {font-size: 15px;}
+.stat-card .source {font-size: 12px; margin-top: 15px;}
+.stat-card .open-btn {margin-top: 15px;}
+*::-webkit-scrollbar {
+  width: 3px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgb(226, 236, 243);
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #002B5C;
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #00254b;
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background: #001932;
+  border-radius: 3px;
+}

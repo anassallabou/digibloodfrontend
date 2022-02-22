@@ -13,13 +13,14 @@ export class AppointmentService {
 
   dataChange: BehaviorSubject<Appointment[]> = new BehaviorSubject<Appointment[]>([]);
   private appointment;
+  private  appointmentInCenter;
   private dataBase: any = [];
 
   constructor(private httpClient: HttpClient) {
   }
 
   addAppointment(appointment: Appointment, userId: number, startTime: String) {
-    return this.httpClient.post('http://localhost:8086/appointment/add?organiserId=' + userId + '&startTime=' + startTime , appointment);
+    return this.httpClient.post('http://localhost:8086/appointment/add?organiserId=' + userId + '&startTime=' + startTime, appointment);
   }
 
   getUpcomingAppointmentsCount(userId: number) {
@@ -50,6 +51,14 @@ export class AppointmentService {
     return this.httpClient.get('http://localhost:8086/appointment/respond/cancel?userId=' + userId + '&appointmentId=' + appointmentId);
   }
 
+  getNextAppointmentsInCenter(userId: number){
+    return this.httpClient.get('http://localhost:8086/appointment/center/upcoming/view?userId=' + userId);
+  }
+
+  getPastAppointmentsInCenter(userId: number){
+    return this.httpClient.get('http://localhost:8086/appointment/center/past/view?userId=' + userId);
+  }
+
   get data(): Appointment[] {
     return this.dataChange.value;
   }
@@ -62,6 +71,25 @@ export class AppointmentService {
         let i: number = 0;
         while (i < this.appointment.length) {
           this.dataBase.push(this.appointment[i]);
+          i++;
+        }
+        console.log(this.dataBase);
+        this.dataChange.next(this.dataBase);
+        console.log(this.dataChange)
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      });
+  }
+
+  getAllPastAppointmentForCenter(userId: number): void {
+    this.httpClient.get<Appointment[]>('http://localhost:8086/appointment/center/past/view?userId=' + userId).subscribe(
+      data => {
+        this.appointmentInCenter = data;
+        console.log(this.appointmentInCenter[1]);
+        let i: number = 0;
+        while (i < this.appointmentInCenter.length) {
+          this.dataBase.push(this.appointmentInCenter[i]);
           i++;
         }
         console.log(this.dataBase);

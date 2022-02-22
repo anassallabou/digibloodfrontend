@@ -1,18 +1,16 @@
 <div class="container">
   <div class="main-body">
-
-
     <div class="row gutters-sm" *ngIf="!editDiv">
       <div class="col-md-4 mb-3">
         <div class="card">
           <div class="card-body">
             <div class="d-flex flex-column align-items-center text-center">
               <img [src]="this.imageService.imageToShow"
-                   class="photo" alt="{{user.userName}}">
+                   class="photo" alt="{{user?.userName}}">
               <div class="mt-3">
-                <h4>{{user.firstName}} {{user.lastName}}</h4>
-                <p class="text-secondary mb-1">{{user.userName}}</p>
-                <p class="text-muted font-size-sm">{{user.address}}</p>
+                <h4>{{user?.firstName}} {{user?.lastName}}</h4>
+                <p class="text-secondary mb-1">{{user?.userName}}</p>
+                <p class="text-muted font-size-sm">{{user?.address}}</p>
               </div>
             </div>
           </div>
@@ -26,7 +24,7 @@
                 <h4 class="mb-0">Full Name</h4>
               </div>
               <div class="col-sm-9 text-secondary">
-                {{user.firstName}} {{user.lastName}}
+                {{user?.firstName}} {{user?.lastName}}
               </div>
             </div>
             <hr>
@@ -35,7 +33,7 @@
                 <h4 class="mb-0">Email</h4>
               </div>
               <div class="col-sm-9 text-secondary">
-                {{user.emailId}}
+                {{user?.emailId}}
               </div>
             </div>
             <hr>
@@ -44,7 +42,7 @@
                 <h4 class="mb-0">Phone</h4>
               </div>
               <div class="col-sm-9 text-secondary">
-                (212) {{user.phoneNumber}}
+                (212) {{user?.phoneNumber}}
               </div>
             </div>
             <hr>
@@ -53,7 +51,7 @@
                 <h4 class="mb-0">Address</h4>
               </div>
               <div class="col-sm-9 text-secondary">
-                {{user.address}}
+                {{user?.address}}
               </div>
             </div>
             <hr>
@@ -62,7 +60,7 @@
                 <h4 class="mb-0">City</h4>
               </div>
               <div class="col-sm-9 text-secondary">
-                {{user.city}}
+                {{user?.city}}
               </div>
             </div>
             <hr>
@@ -74,10 +72,7 @@
           </div>
         </div>
       </div>
-      <div>
-        <img src="">
-      </div>
-      </div>
+    </div>
 
     <div class="row gutters-sm" *ngIf="editDiv">
       <div class="col-md-4 mb-3">

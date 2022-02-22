@@ -38,7 +38,7 @@
 
 </div>-->
 
-<div class="container mat-elevation-z8">
+<div class="container mat-elevation-z8" >
 
   <div class="form">
     <mat-form-field color="primary">
@@ -46,12 +46,54 @@
     </mat-form-field>
   </div>
 
-  <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
-    ng update @angular/cli @angular/core
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
+  <table mat-table [dataSource]="dataSource" matSort class="mat-cell" *ngIf="!loginService.isAdmin(userLogged)">
+    <ng-container matColumnDef="appointmentId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Appointment Id</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.appointmentId}}</mat-cell>
+    </ng-container>
 
-    <!-- ID Column -->
+    <ng-container matColumnDef="appointmentTitle">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Motif</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.appointmentTitle}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="startTime">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Appointment Time</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.startTime}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Donner</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.organiser.lastName}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="location">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Center Location</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.location}}</mat-cell>
+    </ng-container>
+
+    <!-- actions -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>
+      </mat-header-cell>
+
+      <!--<mat-cell *matCellDef="let row; let i=index;">
+        <button mat-icon-button color="primary"
+                (click)="startEdit(i, row.userId, row.firstName, row.lastName, row.emailId, row.enabled)">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn"
+                (click)="deleteItem(i,row.userId, row.firstName, row.lastName, row.emailId, row.enabled)">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      </mat-cell>-->
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </table>
+
+  <table mat-table [dataSource]="dataSourceForCenter" matSort class="mat-cell" *ngIf="loginService.isAdmin(userLogged)">
+
     <ng-container matColumnDef="appointmentId">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Appointment Id</mat-header-cell>
       <mat-cell *matCellDef="let row">{{row.appointmentId}}</mat-cell>
@@ -96,7 +138,7 @@
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
+  </table>
 
 
   <div class="no-results" [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">

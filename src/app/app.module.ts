@@ -33,6 +33,13 @@ import { ProfileComponent } from './profile/profile.component';
 import { UploaderModule } from '@syncfusion/ej2-angular-inputs';
 import { MatListItemComponent } from './mat-list-item/mat-list-item.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { PastAppointmentsCenterComponent } from './center/past-appointments-center/past-appointments-center.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { CenterDashboardComponent } from './center/center-dashboard/center-dashboard.component';
+import { CenterProfileDashboardComponent } from './center/center-profile-dashboard/center-profile-dashboard.component';
+import { NoPermissionComponent } from './no-permission/no-permission.component';
+import { ActivatedAccountComponent } from './activated-account/activated-account.component';
 
 
 
@@ -57,6 +64,13 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     ProfileanddashboardComponent,
     ProfileComponent,
     MatListItemComponent,
+    PastAppointmentsCenterComponent,
+    HomePageComponent,
+    NotFoundComponent,
+    CenterDashboardComponent,
+    CenterProfileDashboardComponent,
+    NoPermissionComponent,
+    ActivatedAccountComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,6 +95,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     MatDialog,
     UserTableService,
     CalendarCreatorService,
+    LoginComponent,
     {
       provide: HTTP_INTERCEPTORS,
       useClass:TokenInceptorService,

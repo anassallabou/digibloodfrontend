@@ -7,6 +7,7 @@ import {SignUpService} from '../sign-upService/sign-up.service';
 import {MatHorizontalStepper, MatStepper} from '@angular/material/stepper';
 import {Form, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {EmailValidation, MustMatch} from './validatore';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-signup',
@@ -33,6 +34,7 @@ export class SignupComponent implements OnInit {
   registerForm: any;
   checked = false;
   public inDataMatInput: boolean = false;
+  title: string = "Register - Digi Blood";
 
 
   constructor(private http: HttpClient,
@@ -41,7 +43,8 @@ export class SignupComponent implements OnInit {
               public signupService: SignUpService,
               public userService: UserService,
               private _formBuilder: FormBuilder,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private titleService: Title) {
 
     this.userURl = "http://localhost:8086/register";
     this.user = new User();
@@ -52,7 +55,8 @@ export class SignupComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
       confirmPassword: ['', Validators.required],
-      acceptTerms: [false, Validators.requiredTrue]
+      phoneNumber: [null, Validators.required]
+      //acceptTerms: [false, Validators.requiredTrue]
     }, {validator: MustMatch('password', 'confirmPassword')});
   }
 
@@ -66,25 +70,13 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.signupService.getUsers(this.signupService.host + "/users")
-      .subscribe(data => {
-        this.user = data;
-        console.log('user ' + this.user);
-        let i: number = 0;
-        while (i < this.user._embedded.users.length) {
-          this.email.push(this.user._embedded.users[i].emailId);
-          i++
-        }
-        console.log(this.email)
-      })
-
+    this.titleService.setTitle(this.title);
     this.firstFormGroup = this.registerForm;
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
-
     this.thirdFormGroup = this._formBuilder.group({
-      thiredCtrl: ['', Validators.required]
+      thirdCtrl: ['', Validators.required]
     });
   }
 

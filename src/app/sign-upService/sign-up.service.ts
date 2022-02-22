@@ -7,7 +7,7 @@ import {User} from '../model/user.model';
 })
 export class SignUpService {
 
-  public host: string = 'http://localhost:8084/';
+  public host: string = 'http://localhost:8086/user/';
 
   constructor(public http: HttpClient) {
   }

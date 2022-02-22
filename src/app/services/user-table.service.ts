@@ -15,7 +15,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class UserTableService {
-  public host: string = 'http://localhost:8086/';
+  public host: string = 'http://localhost:8086/user/';
   public user;
   public dataBase: any = [];
   public urlUpdate: string;

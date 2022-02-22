@@ -8,6 +8,8 @@ import {CalendarCreatorService} from '../services/calendar-creator.service';
 import {DayService} from '../services/day.service';
 import {UserService} from '../userService/user.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {CenterserviceService} from '../services/centerservice.service';
+import {Center} from '../model/center';
 
 @Component({
   selector: 'app-addappointment',
@@ -35,6 +37,14 @@ export class AddappointmentComponent implements OnInit {
     weekDayName: "",
     weekDayNumber: null,
     dayUser: null
+  };
+  city:string;
+  center: Center = {
+    centerId: null,
+    centerAddress:"",
+    centerCity: "",
+    user: null,
+    appointments: null,
   };
   selectedDayMsg: String;
   isShown: boolean;
@@ -116,6 +126,7 @@ export class AddappointmentComponent implements OnInit {
     address: "",
     city: "",
     phoneNumber:null,
+    roles: null
   };
   usrListFound: User[];
 
@@ -134,11 +145,20 @@ export class AddappointmentComponent implements OnInit {
     participantStatus: null,
     centerId: null,
     startTime: null,
-    donationCenter:null
+    donationCenter:null,
+    organiserId: null
   };
+  emailOfCity;
+  centerFound: boolean;
 
-  constructor(private router: Router, private usrService: UserService, private appointmentService: AppointmentService,
-              public calendarCreator: CalendarCreatorService, public dayService: DayService) {
+
+
+  constructor(private router: Router,
+              private usrService: UserService,
+              private appointmentService: AppointmentService,
+              public calendarCreator: CalendarCreatorService,
+              public dayService: DayService,
+              private centerService: CenterserviceService) {
     this.userId  = parseInt(localStorage.getItem("userId"), 10);
     this.username = localStorage.getItem('username');
 
@@ -160,12 +180,33 @@ export class AddappointmentComponent implements OnInit {
     this.userlastNameFound = false;
   }
 
+
+  sendEmail(val) {
+    this.centers.forEach((value => {
+      if(value.city == val){
+        this.emailOfCity = value.email;
+      }
+    }));
+    this.usrService.searchByEmail(this.emailOfCity).subscribe((data: User) => this.usrFound = data);
+    let userId = this.usrFound.userId;
+    this.centerFound = true;
+    let location = this.appointment.location;
+    console.log(this.participantId);
+  }
+
+  searchCenterByCity(val){
+    this.usrService.searchUserByCity(val).subscribe((data: User) => {
+      this.usrFound = data;
+      console.log(this.usrFound);
+    });
+    this.centerFound = true;
+  }
+
   addParticipant(userId: number) {
     this.participantId = userId ;
     console.log(this.participantId);
     alert("Participant Added");
-    this.userEmailFound = false;
-    this.userlastNameFound = false;
+    this.centerFound = false;
   }
 
   buttonDisable = true;
@@ -308,23 +349,8 @@ export class AddappointmentComponent implements OnInit {
     this.selectedId == time.id;
   }
 
-  emailOfCity;
-  sendEmail(val) {
-  // val => city of center
-    //
 
-    this.centers.forEach((value => {
-      if(value.city == val){
-        this.emailOfCity = value.email;
-        return value.email;
-      }
-    }));
-    this.usrService.searchByEmail(this.emailOfCity).subscribe((data: User) => this.usrFound = data);
-    let userId = this.usrFound.userId;
-    this.userEmailFound = true;
-    let location = this.appointment.location;
-      console.log(this.participantId);
-    }
+
 }
 
 

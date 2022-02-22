@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from '../model/user.model';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../services/authentication.service';
 import {Title} from '@angular/platform-browser';
+import {Role} from '../model/role';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import {Title} from '@angular/platform-browser';
 })
 export class LoginComponent implements OnInit {
 
-  title = "Login"
+  title = "Login - Digi-Blood";
 
   username:String;
   password:String;
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     localStorage.setItem('userId', null);
-    sessionStorage.setItem('userId', null);
+    this.loginservice.logOut();
     this.serviceTittle.setTitle(this.title);
   }
 
@@ -32,15 +33,27 @@ export class LoginComponent implements OnInit {
 //Checks user authentication
   checkLogin() {
     if (this.loginservice.authenticate(this.username, this.password)) {
-      this.loginservice.getRole(this.username).subscribe((data:User)=>{
-        this.user = data;
+      this.loginservice.getUser(this.username).subscribe((data:User)=>{
+        localStorage.setItem("userId", JSON.stringify(data.userId));
+        switch (data.roles){
+          case (Role.ADMIN):
+            this.router.navigate(['center/dashboard']);
+            break;
+          case (Role.USER):
+            this.router.navigate(['dashboard']);
+            break;
+          case (Role.CENTER):
+            this.router.navigate(['center/dashboard']);
+            break;
+        }
       });
-      localStorage.setItem("userId", String(this.user.userId));
-      this.redirect();
+      //localStorage.setItem("userId", String(this.user.userId));
+      //this.redirect();
     } else{
       alert("Invalid Login Credentials.");
       this.invalidLogin = true;
     }
+
   }
 
   redirect(){
@@ -49,10 +62,17 @@ export class LoginComponent implements OnInit {
       alert("Successfully Logged In.");
       this.invalidLogin = false;
       this.temp=0;
-      this.router.navigate(['profile']).then(()=>{
+      this.router.navigate(['dashboard']).then(()=>{
         window.location.reload();
-      });;
+      });
     }
+  }
+
+  isAdmin(user:User){
+    if(user){
+      return user.roles == Role.ADMIN;
+    }
+    else return false;
   }
 
 

@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../model/user.model';
+import {BehaviorSubject, Observable, Subscription} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +11,10 @@ export class AuthenticationService {
 
   userId:number;
   private user: User;
-  constructor(private httpClient: HttpClient) {
-  }
+  private currentUserSubject: BehaviorSubject<User>;
+  private isLoging: any;
+
+  constructor(private httpClient: HttpClient, private authService:AuthenticationService) {}
 
   //Retrieves user token and checks authentication
   authenticate(username, password) {
@@ -25,29 +29,44 @@ export class AuthenticationService {
   }
 
   //Checks if user is logged in
+
   isUserLoggedIn(): boolean {
-    let user = localStorage.getItem('username');
-    return !(user === null)
+      let token = localStorage.getItem('userId');
+      return !(token === null)
   }
 
   //Removes user session
   logOut() {
-    sessionStorage.clear();
     localStorage.clear();
   }
 
   //Retrieves role of user
   getRole(username: String) {
-
-    return this.httpClient.get('http://localhost:8086/getRole?username=' + username);
+    return this.httpClient.get('http://localhost:8086/user/getRole?username=' + username, {responseType : 'text'}).pipe(map(res => {
+      return res.valueOf();
+    }
+      ));
   }
 
   getUser(username: String) {
-    return this.httpClient.get('http://localhost:8086/getUser?username=' + username);
+    return this.httpClient.get('http://localhost:8086/user/getUser?username=' + username,
+      { headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Credentials': 'true',
+          'Access-Control-Allow-Headers': 'Content-Type',
+          'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+          'Authorization': `${this.getToken()}`,
+    })
+   })
   }
 
   getToken(){
     return localStorage.getItem('token');
 }
+
+  activatedAccount(token){
+    return this.httpClient.get('http://localhost:8086/confirm-account?token='+token)
+  }
 
 }

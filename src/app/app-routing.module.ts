@@ -14,22 +14,37 @@ import {AlldaysComponent} from './alldays/alldays.component';
 import {AuthGuardService} from './services/authguardservice';
 import {ProfileanddashboardComponent} from './profileanddashboard/profileanddashboard.component';
 import {ProfileComponent} from './profile/profile.component';
+import {PastAppointmentsCenterComponent} from './center/past-appointments-center/past-appointments-center.component';
+import {RoleGuardServiceGuard} from './services/role-guard-service.guard';
+import {HomePageComponent} from './home-page/home-page.component';
+import {Role} from './model/role';
+import {NotFoundComponent} from './not-found/not-found.component';
+import {CenterDashboardComponent} from './center/center-dashboard/center-dashboard.component';
+import {CenterProfileDashboardComponent} from './center/center-profile-dashboard/center-profile-dashboard.component';
+import {NoPermissionComponent} from './no-permission/no-permission.component';
+import {ActivatedAccountComponent} from './activated-account/activated-account.component';
 
 
 const routes: Routes = [
-  {path: 'signup', component: SignupComponent},
-  {path: 'users', component: UsersComponent, canActivate: [AuthGuardService]},
-  {path: 'getuser/:id', component: GetUserComponent, canActivate: [AuthGuardService]},
+  {path: 'register', component: SignupComponent},
+  {path: 'admin/users', component: UsersComponent, canActivate: [AuthGuardService, RoleGuardServiceGuard],  data: { roles: [Role.ADMIN]}},
+  {path: 'getuser/:id', component: GetUserComponent, canActivate: [AuthGuardService, RoleGuardServiceGuard],  data: { roles: [Role.ADMIN]}},
   {path: 'login', component: LoginComponent},
-  {path: 'dashboard', component: DashboardComponent ,canActivate: [AuthGuardService]},
-  {path: 'addappointment', component: AddappointmentComponent, canActivate: [AuthGuardService]},
-  {path: 'pastappointment', component: PastappointmentComponent, canActivate: [AuthGuardService]},
-  {path: 'viewreminders', component: ViewallreminderComponent, canActivate: [AuthGuardService]},
-  {path: 'viewnotifications', component: ViewallnotificationsComponent, canActivate: [AuthGuardService]},
+  {path: 'addappointment', component: AddappointmentComponent, canActivate: [AuthGuardService, RoleGuardServiceGuard],  data: { roles: [Role.USER]}},
+  {path: 'pastappointment', component: PastappointmentComponent, canActivate: [AuthGuardService, RoleGuardServiceGuard],  data: { roles: [Role.USER]}},
+  {path: 'viewreminders', component: ViewallreminderComponent, canActivate: [AuthGuardService, RoleGuardServiceGuard],  data: { roles: [Role.USER]}},
+  {path: 'viewnotifications', component: ViewallnotificationsComponent, canActivate: [AuthGuardService, RoleGuardServiceGuard],  data: { roles: [Role.USER]}},
   {path: 'logout', component: LogoutComponent},
-  {path: 'alldays', component: AlldaysComponent},
-  {path: 'profile', component: ProfileanddashboardComponent, canActivate: [AuthGuardService]},
-  {path: 'userprofile', component: ProfileComponent, canActivate: [AuthGuardService]}
+  {path: 'dashboard', component: ProfileanddashboardComponent, canActivate: [AuthGuardService, RoleGuardServiceGuard],  data: { roles: [Role.USER]}},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService, RoleGuardServiceGuard],  data: { roles: [Role.ADMIN, Role.USER, Role.CENTER]}},
+  {path: 'center/pastappointment', component: PastAppointmentsCenterComponent, canActivate: [AuthGuardService, RoleGuardServiceGuard],  data: { roles: [Role.CENTER]}},
+  {path: 'center/dashboard', component: CenterProfileDashboardComponent, canActivate: [AuthGuardService, RoleGuardServiceGuard],  data: { roles: [Role.ADMIN]}},
+  { path: 'activate/:token', component: ActivatedAccountComponent },
+  {path: 'home', component: HomePageComponent},
+  {path : '', redirectTo : 'home', pathMatch : 'full' },
+  { path: 'permission', component: NoPermissionComponent },
+  { path: '**', component: NotFoundComponent }
+
 
 ];
 

@@ -31,7 +31,7 @@ export class NavBarComponent implements OnInit {
   notificationsList: Notification[];
   isShown: boolean;
   isShownByAvatar: boolean;
-
+  private icon = "/assets/photos/user.png";
 
   constructor(public httpClient: HttpClient, private router: Router, private appointmentService: AppointmentService
     , private reminderService: ReminderService, private notificationService: NotificationService,

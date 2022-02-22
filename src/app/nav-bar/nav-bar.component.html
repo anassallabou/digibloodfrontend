@@ -39,6 +39,7 @@
          matBadgeColor="accent"></i>
     </button>
     <img *ngIf="authServ.isUserLoggedIn()" [src]="this.imageService.imageToShow" alt="Avatar" class="avatar" (click)="toggleAvShow()" >
+    <img *ngIf="!authServ.isUserLoggedIn()" [src]="this.icon" alt="Avatar" class="avatar" (click)="toggleAvShow()" >
   <div *ngIf="isShown" id="divshow">
     <div id="noti_Container" *ngIf="isShown">
       <div id="notifications">

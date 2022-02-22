@@ -56,8 +56,8 @@
 
     <img class="photoprofile mat-elevation-z8" [src]="this.imageService.imageToShow" />
 
-    <h4 class="name">{{user.firstName}} {{user.lastName}}</h4>
-    <p class="designation">Username : {{user.userName}}</p>
+    <h4 class="name">{{user?.firstName}} {{user?.lastName}}</h4>
+    <p class="designation">Username : {{user?.userName}}</p>
 
     <mat-divider></mat-divider>
     <mat-nav-list>

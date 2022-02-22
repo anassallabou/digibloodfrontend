@@ -2,7 +2,7 @@
   position: relative;
 }
 
-/* THE NOTIFICAIONS WINDOW. THIS REMAINS HIDDEN WHEN THE PAGE LOADS. */
+/* THE NOTIFICATIONS WINDOW. THIS REMAINS HIDDEN WHEN THE PAGE LOADS. */
 #notifications {
   position: absolute;
   top: 30px;
