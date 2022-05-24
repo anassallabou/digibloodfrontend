@@ -1,47 +1,53 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 <mat-toolbar class="mat-elevation-z8">
   <mat-toolbar-row>
-  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
-    <mat-icon *ngIf="!sidenav.opened">
-      menu
-    </mat-icon>
-    <mat-icon *ngIf="sidenav.opened">
-      close
-    </mat-icon>
-  </button>
-  Profile et Dashboard
+    <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+      <mat-icon *ngIf="!sidenav.opened">
+        menu
+      </mat-icon>
+      <mat-icon *ngIf="sidenav.opened">
+        close
+      </mat-icon>
+    </button>
+    Profile et Dashboard
     <span class="example-spacer"></span>
-<div class="">
-  <button mat-icon-button (click)="toggleShow()">
-    <i class="fas fa-bell fa-lg " style="color:#eeffff" matBadge="{{notcounter}}"
-       [matBadgeHidden]="notcounter == 0" matBadgePosition="above after" matBadgeSize="small"
-       matBadgeColor="accent"></i>
-  </button>
-  <img [src]="this.imageService.imageToShow" alt="Avatar" class="avatar" (click)="toggleAvShow()" >
-  <div *ngIf="isShown" id="divshow">
-    <div id="noti_Container" *ngIf="isShown">
-      <div id="notifications">
-        <h3 class="notification-h3">Notifications</h3>
-        <div *ngFor="let notification of notificationsList?.reverse() ">
-          <div *ngIf="!notification.seen" class=" notcard" style="width: 100%;">
-            <div class="notcard-title">
-              <p >{{notification.notMessage}}</p>
+    <div class="">
+      <button mat-icon-button (click)="toggleShow()">
+        <i class="fas fa-bell fa-lg " style="color:#eeffff" matBadge="{{notcounter}}" [matBadgeHidden]="notcounter == 0"
+          matBadgePosition="above after" matBadgeSize="small" matBadgeColor="accent"></i>
+      </button>
+      <img [src]="this.imageService.imageToShow" alt="Avatar" class="avatar" (click)="toggleAvShow()">
+      <div *ngIf="isShown" id="divshow">
+        <div id="noti_Container" *ngIf="isShown">
+          <div id="notifications">
+            <h3 class="notification-h3">Notifications</h3>
+            <div *ngFor="let notification of notificationsList?.reverse() ">
+              <div *ngIf="!notification.seen" class=" notcard" style="width: 100%;">
+                <div class="notcard-title">
+                  <p>{{notification.notMessage}}</p>
+                </div>
+              </div>
             </div>
+            <div class="seeAll"><a href="viewnotifications">See All</a></div>
           </div>
         </div>
-        <div class="seeAll"><a href="viewnotifications">See All</a></div>
       </div>
     </div>
-  </div>
-</div>
     <div *ngIf="isShownByAvatar" id="divshowAvatar">
       <div id="avar_Container" *ngIf="isShownByAvatar">
         <div id="inAvatar">
           <div>
-            <div  class=" notcard" style="width: 100%;">
+            <div class=" notcard" style="width: 100%;">
               <div>
                 <h4 class="notcard-title" href="profile">Profile</h4>
               </div>
+
+            </div>
+            <div class="inside-profile text-center">
+              <img [src]="this.imageService.imageToShow" alt="Avatar" class="avatarInside"><br>
+              <span style="margin: 100px 0 5px 0;">{{user.firstName}} {{user.lastName}}</span><br>
+              <button mat-button color="primary" style="margin: 50px 0 5px 0;" (click)="showProfile()">Profile</button>
+              <button mat-button color="primary">Primary 2</button>
             </div>
           </div>
           <div class="seeAll"><a href="logout">Log Out</a></div>
@@ -51,7 +57,7 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-sidenav-container >
+<mat-sidenav-container>
   <mat-sidenav #sidenav="matSidenav">
 
     <img class="photoprofile mat-elevation-z8" [src]="this.imageService.imageToShow" />
@@ -64,23 +70,25 @@
 
       <!--<app-mat-list-item *ngFor="let item of navItems" [item]="item"></app-mat-list-item>-->
       <div id="accordion">
-        <button mat-button class="menu-button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseTwo" (click)="dashShow(); isCollapsed = false">
+        <button mat-button class="menu-button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseTwo"
+          (click)="dashShow(); isCollapsed = false">
           <mat-icon>home</mat-icon>
           <span>Dashboard</span>
         </button>
         <div>
-          <div id="headingOne" >
-              <button mat-button class="menu-button" data-toggle="collapse" data-target="#collapseOne"  (click)="toggle()"
-                      aria-controls="collapseOne" [ngClass]="{'expanded': expanded}">
-                <mat-icon>today</mat-icon>
-                <span >Appointment</span>
-                <mat-icon [@indicatorRotate] = "expanded ? 'expanded': 'collapsed'">
-                  expand_more
-                </mat-icon>
-              </button>
+          <div id="headingOne">
+            <button mat-button class="menu-button" data-toggle="collapse" data-target="#collapseOne" (click)="toggle()"
+              aria-controls="collapseOne" [ngClass]="{'expanded': expanded}">
+              <mat-icon>today</mat-icon>
+              <span>Appointment</span>
+              <mat-icon [@indicatorRotate]="expanded ? 'expanded': 'collapsed'">
+                expand_more
+              </mat-icon>
+            </button>
           </div>
 
-          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" [ngbCollapse]="isCollapsed">
+          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion"
+            [ngbCollapse]="isCollapsed">
             <button mat-button class="menu-button" style="font-size: 12px" (click)="showAddAppt()">
               <mat-icon style="font-size: 20px !important;">add</mat-icon>
               <span>Prend un Rendez-vous</span>
@@ -93,16 +101,14 @@
         </div>
         <div>
           <div id="headingTwo">
-              <button mat-button class="menu-button" data-toggle="collapse" data-target="#collapseTwo"
-                      (click)="toggle1()"
-                      [ngClass]="{'expanded': expanded1}"
-                      aria-controls="collapseTwo">
-                <mat-icon>today</mat-icon>
-                <span>Appointment</span>
-                <mat-icon [@indicatorRotate]="expanded1 ? 'expanded': 'collapsed'">
-                  expand_more
-                </mat-icon>
-              </button>
+            <button mat-button class="menu-button" data-toggle="collapse" data-target="#collapseTwo" (click)="toggle1()"
+              [ngClass]="{'expanded': expanded1}" aria-controls="collapseTwo">
+              <mat-icon>today</mat-icon>
+              <span>Appointment</span>
+              <mat-icon [@indicatorRotate]="expanded1 ? 'expanded': 'collapsed'">
+                expand_more
+              </mat-icon>
+            </button>
           </div>
           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
             TEST
@@ -147,4 +153,3 @@
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
-

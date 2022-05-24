@@ -105,7 +105,7 @@ export class CenterDashboardComponent implements OnInit {
       this.Day_name(this.startTime);
       console.log("data : "+this.startTime);
     });
-    this.reminderService.getUpcomingReminders(this.userId).subscribe((data: Reminder[]) => this.reminderList = data);
+    this.reminderService.getUpcomingRemindersInCenter(this.userId).subscribe((data: Reminder[]) => this.reminderList = data);
     this.notificationService.getNotifications(this.userId).subscribe((data: Notification[]) => this.notificationsList = data);
     /*this.appointmentService.appointmentsInCenter(this.userId).subscribe((data:Appointment[])=>{
       this.appointmentInCenter = data;
@@ -113,6 +113,7 @@ export class CenterDashboardComponent implements OnInit {
     /*console.log(this.startTime);
     this.Day_name(this.startTime);*/
     this.userService.searchByUserId(this.userId).subscribe((data:User) => {
+      this.user = data;
       this.userLogged = data;
     });
 
@@ -155,7 +156,7 @@ export class CenterDashboardComponent implements OnInit {
     location.reload();
   }
 
-  maybeMeeting(appointmentId: number, notId: number) {
+  maybeAppointment(appointmentId: number, notId: number) {
     this.appointmentService.maybeAppointment(appointmentId, this.userId);
     this.notificationService.setSeen(notId);
     alert("Appointment Request Maybe.");
