@@ -110,6 +110,7 @@ export class DashboardComponent implements OnInit {
     /*console.log(this.startTime);
     this.Day_name(this.startTime);*/
     this.userService.searchByUserId(this.userId).subscribe((data:User) => {
+      this.user = data;
       this.userLogged = data;
     });
 

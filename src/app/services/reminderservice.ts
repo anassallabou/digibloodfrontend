@@ -21,4 +21,8 @@ export class ReminderService {
   getAllReminders(userId: number) {
     return this.httpClient.get('http://localhost:8086/reminder/view?userId=' + userId);
   }
+
+  getUpcomingRemindersInCenter(userId: number) {
+    return this.httpClient.get('http://localhost:8086/reminder/center/upcoming/view?userId=' + userId);
+  }
 }

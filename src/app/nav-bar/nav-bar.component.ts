@@ -9,6 +9,7 @@ import {AppointmentService} from '../services/appointmentservice';
 import {AuthenticationService} from '../services/authentication.service';
 import {UserService} from '../userService/user.service';
 import {ImageService} from '../services/image.service';
+import { User } from '../model/user.model';
 
 @Component({
   selector: 'app-nav-bar',
@@ -31,6 +32,7 @@ export class NavBarComponent implements OnInit {
   notificationsList: Notification[];
   isShown: boolean;
   isShownByAvatar: boolean;
+  user: User;
   private icon = "/assets/photos/user.png";
 
   constructor(public httpClient: HttpClient, private router: Router, private appointmentService: AppointmentService
@@ -48,6 +50,7 @@ export class NavBarComponent implements OnInit {
     this.notificationService.getNotificationsCount(this.userId).subscribe((data: number) => this.upcNotificationCount = data);
     this.notificationService.getNotificationsCount(this.userId).subscribe((data: number) => this.notcounter = data);
     this.imageService.getImageFromBlob(this.userId);
+    this.userService.searchByUserId(this.userId).subscribe((data:User) => { this.user = data });
     this.isShown = false;
     this.isShownByAvatar = false;
   }

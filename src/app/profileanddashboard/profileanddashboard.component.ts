@@ -75,7 +75,7 @@ export class ProfileanddashboardComponent implements OnInit {
     this.titleService.setTitle(this.title);
     this.notificationService.getNotifications(this.userId).subscribe((data: Notification[]) => this.notificationsList = data);
     this.notificationService.getNotificationsCount(this.userId).subscribe((data: number) => this.upcNotificationCount = data);
-    this.notificationService.getNotificationsCount(this.userId).subscribe((data: number) => this.notcounter = data);
+    this.notificationService.getNotificationsCount(this.userId).subscribe((data: number) => {this.notcounter = data; console.log("notif counter"+data)});
     this.userService.searchByUserId(this.userId).subscribe((data:User) => {
       this.user = data;
       console.log(this.user);

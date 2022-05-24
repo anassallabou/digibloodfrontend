@@ -32,7 +32,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'addappointment', component: AddappointmentComponent, canActivate: [AuthGuardService, RoleGuardServiceGuard],  data: { roles: [Role.USER]}},
   {path: 'pastappointment', component: PastappointmentComponent, canActivate: [AuthGuardService, RoleGuardServiceGuard],  data: { roles: [Role.USER]}},
-  {path: 'viewreminders', component: ViewallreminderComponent, canActivate: [AuthGuardService, RoleGuardServiceGuard],  data: { roles: [Role.USER]}},
+  {path: 'viewreminders', component: ViewallreminderComponent, canActivate: [AuthGuardService, RoleGuardServiceGuard],  data: { roles: [Role.USER, Role.ADMIN]}},
   {path: 'viewnotifications', component: ViewallnotificationsComponent, canActivate: [AuthGuardService, RoleGuardServiceGuard],  data: { roles: [Role.USER]}},
   {path: 'logout', component: LogoutComponent},
   {path: 'dashboard', component: ProfileanddashboardComponent, canActivate: [AuthGuardService, RoleGuardServiceGuard],  data: { roles: [Role.USER]}},

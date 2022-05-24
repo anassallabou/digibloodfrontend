@@ -64,6 +64,12 @@
                 <h4 class="notcard-title" href="profile">Profile</h4>
               </div>
             </div>
+            <div class="inside-profile text-center">
+              <img [src]="this.imageService.imageToShow" alt="Avatar" class="avatarInside"><br>
+              <span style="margin: 100px 0 5px 0;">{{user.firstName}} {{user.lastName}}</span><br>
+              <button mat-button color="primary" style="margin: 50px 0 5px 0;" (click)="showProfile()">Profile</button>
+              <button mat-button color="primary">Primary 2</button>
+            </div>
           </div>
           <div class="seeAll"><a href="logout">Log Out</a></div>
         </div>

@@ -185,13 +185,14 @@ export class AddappointmentComponent implements OnInit {
     this.centers.forEach((value => {
       if(value.city == val){
         this.emailOfCity = value.email;
+        this.usrService.searchByEmail(this.emailOfCity).subscribe((data: User) => this.usrFound = data);
+        let userId = this.usrFound.userId;
+        this.centerFound = true;
+        let location = this.appointment.location;
+        console.log(this.participantId);
       }
     }));
-    this.usrService.searchByEmail(this.emailOfCity).subscribe((data: User) => this.usrFound = data);
-    let userId = this.usrFound.userId;
-    this.centerFound = true;
-    let location = this.appointment.location;
-    console.log(this.participantId);
+    
   }
 
   searchCenterByCity(val){
